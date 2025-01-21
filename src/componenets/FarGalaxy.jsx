@@ -2,7 +2,7 @@ import {link_api} from "../utils/constants.js";
 import {useEffect, useState} from "react";
 
 const FarGalaxy = () => {
-    const [openingCrawl, setOpeningCrawl] = useState('');
+    const [openingCrawl, setOpeningCrawl] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     let id = Math.floor((Math.random() * 6) + 1);
@@ -31,8 +31,10 @@ const FarGalaxy = () => {
     return (
         <div>
             {isLoading && (
-                <div className="spinner-border text-primary" role={'status'}>
-                    <span className="visually-hidden">Loading...</span>
+                <div className="d-flex justify-content-center align-items-center" style={{height: '100vh'}}>
+                    <div className="spinner-border text-secondary spinner-size" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
                 </div>
             )}
             {!isLoading && error && (
