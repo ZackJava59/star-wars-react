@@ -1,5 +1,4 @@
 import Home from "./Home.jsx";
-import {useState} from "react";
 import AboutMe from "./AboutMe.jsx";
 import {navItems} from "../utils/constants.js";
 import StarWars from "./StarWars.jsx";
