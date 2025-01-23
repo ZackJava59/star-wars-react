@@ -6,25 +6,30 @@ const FarGalaxy = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     let id = Math.floor((Math.random() * 6) + 1);
-    const getOpeningCrawl = async () => {
-        setIsLoading(true);
-        try {
-            const response = await fetch(`${link_api}/${id}`);
-            if (!response.ok) {
-                throw new Error(`Error loading Data`);
-            }
-            const data = await response.json();
-            setOpeningCrawl({
-                textCrawl: data.opening_crawl
-            });
-        } catch (e) {
-            setError(e.message);
-        } finally {
-            setIsLoading(false);
-        }
-    };
+
 
     useEffect(() => {
+        const getOpeningCrawl = async () => {
+            setIsLoading(true);
+            try {
+                const opening_crawl = sessionStorage.getItem('opening_crawl');
+                if (opening_crawl) {
+                    setOpeningCrawl(opening_crawl);
+                } else {
+                    const response = await fetch(`${link_api}/v1/films/${id}`);
+                    if (!response.ok) {
+                        throw new Error(`Error loading Data`);
+                    }
+                    const data = await response.json();
+                    setOpeningCrawl(data.opening_crawl)
+                    sessionStorage.setItem('opening_crawl', data.opening_crawl);
+                }
+            } catch (e) {
+                setError(e.message);
+            } finally {
+                setIsLoading(false);
+            }
+        };
         getOpeningCrawl();
     }, [])
 
@@ -44,7 +49,7 @@ const FarGalaxy = () => {
             )}
             {!isLoading && (
                 <div>
-                    <p className="farGalaxy">{openingCrawl.textCrawl}</p>
+                    <p className="farGalaxy">{openingCrawl}</p>
                 </div>
             )}
         </div>
