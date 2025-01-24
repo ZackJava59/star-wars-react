@@ -10,7 +10,7 @@ function App() {
     const [page, setPage] = useState(navItems[0]);
 
     return (
-        <div className={'container-fluid'}>
+        <div>
             <Header changePage={setPage}/>
             <Main page={page}/>
             <Footer/>
