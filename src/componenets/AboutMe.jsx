@@ -55,7 +55,7 @@ const AboutMe = () => {
         return (
             <div>
                 {lukeInfo && (
-                    <div className='farGalaxy'>
+                    <div className='text-4xl tracking-widest leading-15 text-justify px-3'>
                         <p>My name is {lukeInfo.name}</p>
                         <p>I`m a {lukeInfo.gender}</p>
                         <p>I have a {lukeInfo.skin_color} skin color</p>
