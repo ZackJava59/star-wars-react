@@ -1,8 +1,8 @@
 const Footer = () => {
     return (
-        <footer className="fixed bottom-0 w-full rounded-b-2xl items-center py-5 bg-grey-color">
-            <div className="text-center rounded-md border-solid border-2 bg-[#CC0323]/50 w-1/6 ml-[33.33%]">Send me an <span
-                className="text-black text-uppercase">email</span></div>
+        <footer className={'clear-both bg-grey-color h-20 rounded-b-2xl grid grid-cols-7 items-center'}>
+            <div className={'col-start-3 bg-red-color border-black border-2 rounded-md px-3 py-2 cursor-pointer hover:bg-red-500 hover:text-white'}>Send me an <span
+                className={'text-black uppercase'}>email</span></div>
         </footer>
     );
 };

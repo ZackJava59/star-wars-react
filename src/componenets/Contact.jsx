@@ -46,8 +46,8 @@ const Contact = () => {
                 <input type='text' name='lastName' placeholder='Your last name...'/>
             </label>
             <label> Planet
-                <select name='planet'>
-                    {planets.map(item => <option value={item} key={item}>{item}</option>)}
+                <select className='planet bg-grey-color text-base'  >
+                    {planets.map(item => <option className={'text-xl bg-black/90'} value={item} key={item}>{item}</option>)}
                 </select>
             </label>
             <label> Subject:

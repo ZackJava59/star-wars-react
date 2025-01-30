@@ -1,74 +1,70 @@
 import {useEffect, useState} from "react";
-import {link_api} from "../utils/constants.js";
+import {link_api, period_month} from "../utils/constants.js";
 
 
 const AboutMe = () => {
 
-        const [lukeInfo, setLukeInfo] = useState(null);
+    const [lukeInfo, setLukeInfo] = useState({});
 
-        useEffect(() => {
+    useEffect(() => {
 
-                const getLukeInfo = async () => {
-                    try {
-                        const response = await fetch(`${link_api}/v1/peoples/${1}`);
-                        if (!response.ok) {
-                            throw new Error("Failed to fetch Luke info");
-                        }
-                        const lukeData = await response.json();
-                        const lukeWithTimeStamp = {
-                            lukeData,
-                            saveTime: new Date().toISOString()
-                        }
-                        setLukeInfo(lukeData);
-                        localStorage.setItem('local_lukeInfo', JSON.stringify(lukeWithTimeStamp));
-
-                    } catch (e) {
-                        e.message;
+            const getLukeInfo = async () => {
+                try {
+                    const response = await fetch(`${link_api}/v1/peoples/${1}`);
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch Luke info");
                     }
+                    const data = await response.json();
+
+                    setLukeInfo({
+                        name: data.name,
+                        gender: data.gender,
+                        skin_color: data.skin_color,
+                        hair_color: data.hair_color,
+                        eye_color: data.eye_color,
+                        height: data.height,
+                        weight: data.mass,
+                        birth_year: data.birth_year
+                    });
+                    localStorage.setItem('local_lukeInfo', JSON.stringify({
+                        name: data.name,
+                        gender: data.gender,
+                        skin_color: data.skin_color,
+                        hair_color: data.hair_color,
+                        eye_color: data.eye_color,
+                        height: data.height,
+                        weight: data.mass,
+                        birth_year: data.birth_year,
+                        saveTime: new Date().toISOString()
+                    }));
+
+                } catch (e) {
+                    console.log(e.message);
                 }
+            }
 
-                const local_LukeInfo = localStorage.getItem('local_lukeInfo');
+            const luke = JSON.parse(localStorage.getItem('local_lukeInfo'));
+            if (luke && (Date.now() - luke.saveTime) < period_month) {
+                setLukeInfo({luke})
+            } else {
+                getLukeInfo();
+            }
+        },
+        []
+    )
 
-                if (local_LukeInfo) {
-                    try {
-                        const LukeParsedInfo = JSON.parse(local_LukeInfo);
-                        const savedTime = new Date(LukeParsedInfo.saveTime);
-                        const now = new Date();
-                        const differenceInDays = (now - savedTime) / (1000 * 60 * 60 * 24);
-
-                        if (differenceInDays < 30) {
-                            setLukeInfo(LukeParsedInfo.lukeData);
-                        } else {
-                            getLukeInfo();
-                        }
-                    } catch (e) {
-                        console.error("Error parsing localStorage data:", e.message);
-                        getLukeInfo();
-                    }
-                } else {
-                    getLukeInfo();
-                }
-            },
-            []
-        )
-
-        return (
-            <div>
-                {lukeInfo && (
-                    <div className='text-4xl tracking-widest leading-15 text-justify px-3'>
-                        <p>My name is {lukeInfo.name}</p>
-                        <p>I`m a {lukeInfo.gender}</p>
-                        <p>I have a {lukeInfo.skin_color} skin color</p>
-                        <p>And {lukeInfo.hair_color} hair color</p>
-                        <p>Also I have {lukeInfo.eye_color} eye color</p>
-                        <p>My height is {lukeInfo.height} and weight: {lukeInfo.mass}</p>
-                        <p>My birth year is {lukeInfo.birth_year}</p>
-                    </div>
-                )}
-            </div>
-        )
-            ;
-    }
-;
+    return (
+        <div>
+            {lukeInfo && (
+                <div className='text-4xl tracking-widest leading-15 text-justify ml-8'>
+                    {Object.keys(lukeInfo).map(key => <p key={key}>
+                        <span className={'text-3xl capitalize'}>{key.replace('_', ' ')}: {lukeInfo[key]}</span>
+                    </p>)}
+                </div>
+            )}
+        </div>
+    );
+}
 
 export default AboutMe;
+
