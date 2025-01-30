@@ -1,5 +1,6 @@
 import {link_api} from "../utils/constants.js";
 import {useEffect, useState} from "react";
+import Text from "./Text.jsx";
 
 const FarGalaxy = () => {
     const [openingCrawl, setOpeningCrawl] = useState('Loading...');
@@ -21,9 +22,7 @@ const FarGalaxy = () => {
     }, [])
 
     return (
-        <div>
-            <p className={'text-[2em] tracking-[.2em] leading-[1.5] text-justify p-[0.2em]'}>{openingCrawl}</p>
-        </div>
+        <Text>{openingCrawl}</Text>
     );
 };
 
