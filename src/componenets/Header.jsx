@@ -2,7 +2,7 @@ import Navigation from "./Navigation.jsx";
 
 const Header = ({changePage}) => {
     return (
-        <header className={'rounded-t-2xl bg-grey-color'}>
+        <header className={'rounded-t-2xl bg-grey-color mb-5'}>
             <Navigation changePage={changePage}/>
             <h1 className="text-center text-3xl py-5">Luke Skywalker</h1>
         </header>

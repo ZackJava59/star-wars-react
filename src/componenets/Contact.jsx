@@ -34,26 +34,35 @@ const Contact = () => {
         }
     }, [])
 
-
     return (
-        <form className='container' onSubmit={e => {
+        <form className={'rounded-md bg-grey-color p-5'} onSubmit={e => {
             e.preventDefault()
         }}>
             <label> First Name:
-                <input type='text' name='firstName' placeholder='Your name...'/>
+                <input
+                    className={'w-full p-1.5 border border-solid border-[#ccc] rounded box-border mt-1.5 mb-5 resize-y'}
+                    type='text' name='firstName' placeholder='Your name...'/>
             </label>
             <label> Last Name:
-                <input type='text' name='lastName' placeholder='Your last name...'/>
+                <input
+                    className={'w-full p-1.5 border border-solid border-[#ccc] rounded box-border mt-1.5 mb-5 resize-y'}
+                    type='text' name='lastName' placeholder='Your last name...'/>
             </label>
             <label> Planet
-                <select className='planet bg-grey-color text-base'  >
-                    {planets.map(item => <option className={'text-xl bg-black/90'} value={item} key={item}>{item}</option>)}
+                <select
+                    className={'w-full p-1.5 border border-solid border-[#ccc] rounded box-border mt-1.5 mb-5 resize-y'}>
+                    {planets.map(item => <option className={'text-base-color bg-black'} value={item}
+                                                 key={item}>{item}</option>)}
                 </select>
             </label>
             <label> Subject:
-                <textarea name='subject' placeholder='Write something...'></textarea>
+                <textarea
+                    className={'w-full p-1.5 border border-solid border-[#ccc] rounded box-border mt-1.5 mb-5 resize-y h-25'}
+                    name='subject' placeholder='Write something...'></textarea>
             </label>
-            <button type="submit">Submit</button>
+            <button className={'bg-red-color text-base-color py-3 px-5 rounded-md cursor-pointer hover:bg-red-500'}
+                    type="submit">Submit
+            </button>
         </form>
     );
 };
