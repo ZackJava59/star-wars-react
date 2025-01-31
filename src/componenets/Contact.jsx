@@ -1,6 +1,7 @@
 import '../contact.css'
 import {link_api, period_month} from "../utils/constants.js";
 import {useEffect, useState} from "react";
+import Button from "./Button.jsx";
 
 const Contact = () => {
 
@@ -40,12 +41,12 @@ const Contact = () => {
         }}>
             <label> First Name:
                 <input
-                    className={'w-full p-1.5 border border-solid border-[#ccc] rounded box-border mt-1.5 mb-5 resize-y'}
+                    className={'w-full p-1.5 border border-solid border-[#ccc] rounded box-border mt-1.5 mb-5 resize-y autofill-fix'}
                     type='text' name='firstName' placeholder='Your name...'/>
             </label>
             <label> Last Name:
                 <input
-                    className={'w-full p-1.5 border border-solid border-[#ccc] rounded box-border mt-1.5 mb-5 resize-y'}
+                    className={'w-full p-1.5 border border-solid border-[#ccc] rounded box-border mt-1.5 mb-5 resize-y autofill-fix'}
                     type='text' name='lastName' placeholder='Your last name...'/>
             </label>
             <label> Planet
@@ -60,9 +61,7 @@ const Contact = () => {
                     className={'w-full p-1.5 border border-solid border-[#ccc] rounded box-border mt-1.5 mb-5 resize-y h-25'}
                     name='subject' placeholder='Write something...'></textarea>
             </label>
-            <button className={'bg-red-color text-base-color py-3 px-5 rounded-md cursor-pointer hover:bg-red-500'}
-                    type="submit">Submit
-            </button>
+            <Button className='py-3 px-5'>Submit</Button>
         </form>
     );
 };
