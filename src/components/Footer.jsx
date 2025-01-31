@@ -1,4 +1,5 @@
-import Button from "./Button.jsx";
+import Button from "../uicomponents/Button.jsx";
+
 
 const Footer = () => {
 

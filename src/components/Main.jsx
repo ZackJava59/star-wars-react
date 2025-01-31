@@ -6,7 +6,6 @@ import Contact from "./Contact.jsx";
 
 const Main = ({page}) => {
 
-
     switch (page) {
         case navItems[1]:
             return <AboutMe/>;

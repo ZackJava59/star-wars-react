@@ -1,6 +1,7 @@
 import {link_api} from "../utils/constants.js";
 import {useEffect, useState} from "react";
-import Text from "./Text.jsx";
+import Text from "../uicomponents/Text.jsx";
+
 
 const FarGalaxy = () => {
     const [openingCrawl, setOpeningCrawl] = useState('Loading...');

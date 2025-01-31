@@ -1,5 +1,6 @@
 import {starWarsInfo} from "../utils/constants.js";
-import Text from "./Text.jsx";
+import Text from "../uicomponents/Text.jsx";
+
 
 const StarWars = () => {
     return (

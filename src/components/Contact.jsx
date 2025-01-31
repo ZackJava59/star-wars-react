@@ -1,7 +1,11 @@
 import '../contact.css'
 import {link_api, period_month} from "../utils/constants.js";
 import {useEffect, useState} from "react";
-import Button from "./Button.jsx";
+import Input from "../uicomponents/Input.jsx";
+import Select from "../uicomponents/Select.jsx";
+import TextArea from "../uicomponents/TextArea.jsx";
+import Button from "../uicomponents/Button.jsx";
+
 
 const Contact = () => {
 
@@ -39,31 +43,14 @@ const Contact = () => {
         <form className={'rounded-md bg-grey-color p-5'} onSubmit={e => {
             e.preventDefault()
         }}>
-            <label> First Name:
-                <input
-                    className={'w-full p-1.5 border border-solid border-[#ccc] rounded box-border mt-1.5 mb-5 resize-y autofill-fix'}
-                    type='text' name='firstName' placeholder='Your name...'/>
-            </label>
-            <label> Last Name:
-                <input
-                    className={'w-full p-1.5 border border-solid border-[#ccc] rounded box-border mt-1.5 mb-5 resize-y autofill-fix'}
-                    type='text' name='lastName' placeholder='Your last name...'/>
-            </label>
-            <label> Planet
-                <select
-                    className={'w-full p-1.5 border border-solid border-[#ccc] rounded box-border mt-1.5 mb-5 resize-y'}>
-                    {planets.map(item => <option className={'text-base-color bg-black'} value={item}
-                                                 key={item}>{item}</option>)}
-                </select>
-            </label>
-            <label> Subject:
-                <textarea
-                    className={'w-full p-1.5 border border-solid border-[#ccc] rounded box-border mt-1.5 mb-5 resize-y h-25'}
-                    name='subject' placeholder='Write something...'></textarea>
-            </label>
+            <Input type={'text'} name={'firstName'} placeholder={'Your First Name'}>First Name:</Input>
+            <Input type={'text'} name={'lastName'} placeholder={'Your Last Name'}>Last Name:</Input>
+            <Select options={planets}>Planets</Select>
+            <TextArea name='subject' placeholder='Write something...'>Subject</TextArea>
             <Button className='py-3 px-5'>Submit</Button>
         </form>
     );
 };
+
 
 export default Contact;
