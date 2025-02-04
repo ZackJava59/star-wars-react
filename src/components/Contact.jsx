@@ -1,4 +1,3 @@
-import '../contact.css'
 import {link_api, period_month} from "../utils/constants.js";
 import {useEffect, useState} from "react";
 import Input from "../uicomponents/Input.jsx";
