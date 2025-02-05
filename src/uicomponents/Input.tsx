@@ -1,4 +1,6 @@
-const Input = ({className = '', children, ...props}) => {
+import {baseUI} from "../utils/type";
+
+const Input = ({className = '', children, ...props}: baseUI) => {
     return (
         <label> {children}:
             <input

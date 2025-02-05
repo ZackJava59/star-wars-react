@@ -1,6 +1,6 @@
-import Hero from "./Hero.jsx";
-import DreamTeam from "./DreamTeam.jsx";
-import FarGalaxy from "./FarGalaxy.jsx";
+import Hero from "./Hero.tsx";
+import DreamTeam from "./DreamTeam.tsx";
+import FarGalaxy from "./FarGalaxy.tsx";
 
 const Home = () => {
     return (

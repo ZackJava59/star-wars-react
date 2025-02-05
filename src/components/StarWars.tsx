@@ -1,6 +1,5 @@
-import {starWarsInfo} from "../utils/constants.js";
-import Text from "../uicomponents/Text.jsx";
-
+import {starWarsInfo} from "../utils/constants.ts";
+import Text from "../uicomponents/Text.tsx";
 
 const StarWars = () => {
     return (

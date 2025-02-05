@@ -1,4 +1,6 @@
-const TextArea = ({className = '', children, ...props}) => {
+import {baseUI} from "../utils/type";
+
+const TextArea = ({className = '', children, ...props}: baseUI) => {
     return (
         <label> {children}:
             <textarea

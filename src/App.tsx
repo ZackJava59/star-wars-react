@@ -1,9 +1,8 @@
-import './App.css'
-import Header from "./components/Header.jsx";
-import Footer from "./components/Footer.jsx";
-import Main from "./components/Main.jsx";
+import Header from "./components/Header.tsx";
+import Footer from "./components/Footer.tsx";
+import Main from "./components/Main.tsx";
 import {useState} from "react";
-import {navItems} from "./utils/constants.js";
+import {navItems} from "./utils/constants.ts";
 
 function App() {
 

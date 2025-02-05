@@ -1,6 +1,7 @@
-import Navigation from "./Navigation.jsx";
+import Navigation from "./Navigation.tsx";
+import {NavProps} from "../utils/type";
 
-const Header = ({changePage}) => {
+const Header = ({changePage}: NavProps) => {
     return (
         <header className={'rounded-t-2xl bg-grey-color mb-5'}>
             <Navigation changePage={changePage}/>

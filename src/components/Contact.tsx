@@ -1,14 +1,17 @@
-import {link_api, period_month} from "../utils/constants.js";
+import {link_api, period_month} from "../utils/constants.ts";
 import {useEffect, useState} from "react";
-import Input from "../uicomponents/Input.jsx";
-import Select from "../uicomponents/Select.jsx";
-import TextArea from "../uicomponents/TextArea.jsx";
-import Button from "../uicomponents/Button.jsx";
+import Input from "../uicomponents/Input.tsx";
+import Select from "../uicomponents/Select.tsx";
+import TextArea from "../uicomponents/TextArea.tsx";
+import Button from "../uicomponents/Button.tsx";
 
+interface Planet {
+    name: string;
+}
 
 const Contact = () => {
 
-    const [planets, setPlanets] = useState(['Wait...']);
+    const [planets, setPlanets] = useState<string []>(['Wait...']);
 
     const getPlanetList = async () => {
         try {
@@ -16,8 +19,8 @@ const Contact = () => {
             if (!response.ok) {
                 throw new Error('Failed to fetch planet list');
             } else {
-                const data = await response.json();
-                const planets = data.map(item => item.name);
+                const data: Planet[] = await response.json();
+                const planets: string[] = data.map(item => (item.name));
                 setPlanets(planets);
                 localStorage.setItem('planets', JSON.stringify({
                     payload: planets,
@@ -30,7 +33,7 @@ const Contact = () => {
     };
 
     useEffect(() => {
-        const planets = JSON.parse(localStorage.getItem('planets'));
+        const planets = JSON.parse(localStorage.getItem('planets')!);
         if (planets && ((Date.now() - planets.timeStamp) < period_month)) {
             setPlanets(planets.payload);
         } else {

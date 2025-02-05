@@ -1,7 +1,8 @@
-import NavItem from "./NavItem.jsx";
-import {navItems} from "../utils/constants.js";
+import NavItem from "./NavItem.tsx";
+import {navItems} from "../utils/constants.ts";
+import {NavProps} from "../utils/type";
 
-const Navigation = ({changePage}) => {
+const Navigation = ({changePage}: NavProps) => {
     return (
         <nav className={'fixed top-2 left-12'}>
             <ul className={'flex gap-2'}>

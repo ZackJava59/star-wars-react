@@ -1,4 +1,9 @@
-const Friend = ({picture, pos}) => {
+interface Props {
+    picture: string;
+    pos: number;
+}
+
+const Friend = ({picture, pos}: Props) => {
     let styles = "w-full";
     if (pos === 7) {
         styles += ' rounded-bl-2xl'

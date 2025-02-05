@@ -1,4 +1,10 @@
-const Select = ({className = '', options = [], children, ...props}) => {
+import {baseUI} from "../utils/type";
+
+interface selectProps extends baseUI {
+    options: string[];
+}
+
+const Select = ({className = '', options = [], children, ...props}: selectProps) => {
     return (
         <label> {children}
             <select

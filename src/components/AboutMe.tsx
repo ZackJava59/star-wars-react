@@ -1,9 +1,11 @@
 import {useEffect, useState} from "react";
-import {link_api, period_month} from "../utils/constants.js";
+import {link_api, period_month} from "../utils/constants.ts";
+import {LukeInfoTypes} from "../utils/type";
+
 
 const AboutMe = () => {
 
-    const [lukeInfo, setLukeInfo] = useState({});
+    const [lukeInfo, setLukeInfo] = useState<LukeInfoTypes | {}>({});
 
     useEffect(() => {
 
@@ -12,7 +14,7 @@ const AboutMe = () => {
                     const response = await fetch(`${link_api}/v1/peoples/1`);
                     if (!response.ok) throw new Error("Failed to fetch Luke info");
                     const data = await response.json();
-                    const luke = {
+                    const luke: LukeInfoTypes = {
                         name: data.name,
                         gender: data.gender,
                         skin_color: data.skin_color,
@@ -28,11 +30,12 @@ const AboutMe = () => {
                         saveTime: Date.now()
                     }));
                 } catch (e) {
-                    console.log(e.message);
+                    if (e instanceof Error)
+                        console.log(e.message);
                 }
             }
 
-            const luke = JSON.parse(localStorage.getItem('local_lukeInfo'));
+            const luke = JSON.parse(localStorage.getItem('local_lukeInfo')!);
             if (luke && (Date.now() - luke.saveTime) < period_month) {
                 setLukeInfo(luke.hero)
             } else {
@@ -46,9 +49,10 @@ const AboutMe = () => {
         <div>
             {lukeInfo && (
                 <div className='text-4xl tracking-widest leading-13 text-justify ml-8'>
-                    {Object.keys(lukeInfo).map(key => <p key={key}>
-                        <span className={'text-3xl capitalize'}>{key.replace('_', ' ')}</span>: {lukeInfo[key]}
-                    </p>)}
+                    {Object.entries(lukeInfo).map(([key, value]) =>
+                        <p key={key}>
+                            <span className={'text-3xl capitalize'}>{key.replace('_', ' ')}</span>: {value}
+                        </p>)}
                 </div>
             )}
         </div>
