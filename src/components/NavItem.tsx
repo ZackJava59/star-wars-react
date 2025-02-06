@@ -1,13 +1,16 @@
 import Button from "../uicomponents/Button.tsx";
-import {NavProps} from "../utils/type";
+import {useContext} from "react";
+import {PageContext} from "../utils/context.ts";
 
-interface NavItemProps extends NavProps {
+interface NavItemProps {
     itemTitle: string;
 }
 
-const NavItem = ({itemTitle, changePage}:NavItemProps) => {
+const NavItem = ({itemTitle}:NavItemProps) => {
+    const context = useContext(PageContext);
+
     return (
-        <li onClick={() => changePage(itemTitle)}><Button
+        <li onClick={() => context.setPage(itemTitle)}><Button
             className={'border-black border-2 px-3 py-2'}>{itemTitle}</Button></li>
     );
 };

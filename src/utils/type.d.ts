@@ -19,7 +19,5 @@ export interface LukeInfoTypes {
     birth_year: string
 }
 
-export interface NavProps {
-    changePage: (page: string) => void
-}
+
 

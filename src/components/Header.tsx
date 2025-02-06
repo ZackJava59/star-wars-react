@@ -1,10 +1,10 @@
 import Navigation from "./Navigation.tsx";
-import {NavProps} from "../utils/type";
 
-const Header = ({changePage}: NavProps) => {
+const Header = () => {
+
     return (
         <header className={'rounded-t-2xl bg-grey-color mb-5'}>
-            <Navigation changePage={changePage}/>
+            <Navigation/>
             <h1 className="text-center text-3xl py-5">Luke Skywalker</h1>
         </header>
     );

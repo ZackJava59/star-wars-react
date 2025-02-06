@@ -3,12 +3,11 @@ import AboutMe from "./AboutMe.tsx";
 import {navItems} from "../utils/constants.ts";
 import StarWars from "./StarWars.tsx";
 import Contact from "./Contact.tsx";
+import {useContext} from "react";
+import {PageContext} from "../utils/context.ts";
 
-interface PageProps {
-    page: string;
-}
-
-const Main = ({page}: PageProps) => {
+const Main = () => {
+    const {page} = useContext(PageContext);
 
     switch (page) {
         case navItems[1]:

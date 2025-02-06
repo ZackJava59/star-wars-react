@@ -2,7 +2,6 @@ import {useEffect, useState} from "react";
 import {link_api, period_month} from "../utils/constants.ts";
 import {LukeInfoTypes} from "../utils/type";
 
-
 const AboutMe = () => {
 
     const [lukeInfo, setLukeInfo] = useState<LukeInfoTypes | {}>({});

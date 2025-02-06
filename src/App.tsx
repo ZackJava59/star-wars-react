@@ -3,6 +3,7 @@ import Footer from "./components/Footer.tsx";
 import Main from "./components/Main.tsx";
 import {useState} from "react";
 import {navItems} from "./utils/constants.ts";
+import {PageContext} from "./utils/context.ts";
 
 function App() {
 
@@ -10,9 +11,11 @@ function App() {
 
     return (
         <div>
-            <Header changePage={setPage}/>
-            <Main page={page}/>
-            <Footer/>
+            < PageContext.Provider value={{page, setPage}}>
+                <Header/>
+                <Main/>
+                <Footer/>
+            </PageContext.Provider>
         </div>
     )
 }
