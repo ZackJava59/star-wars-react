@@ -8,16 +8,28 @@ export interface baseUI {
     placeholder?: string
 }
 
-export interface LukeInfoTypes {
+export interface HeroInfoTypes {
     name: string,
     gender: string,
     skin_color: string,
     hair_color: string,
     eye_color: string,
-    height: string,
-    weight: string,
+    height: number,
+    weight: number,
     birth_year: string
 }
 
+export interface Item {
+    title: string,
+    path: string,
+}
 
+export interface Hero {
+    name: string,
+    img: string,
+    url: string,
+}
 
+export interface Characters {
+    [key: string]: Hero;
+}

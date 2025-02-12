@@ -1,19 +1,21 @@
 import {useEffect, useState} from "react";
-import {link_api, period_month} from "../utils/constants.ts";
-import {LukeInfoTypes} from "../utils/type";
+import {characters, defaultHero, period_month} from "../utils/constants.ts";
+import {HeroInfoTypes} from "../utils/type";
+import {useParams} from "react-router";
 
 const AboutMe = () => {
 
-    const [lukeInfo, setLukeInfo] = useState<LukeInfoTypes | {}>({});
+    const [heroInfo, setHeroInfo] = useState<HeroInfoTypes>({} as HeroInfoTypes);
+    const {heroId = defaultHero} = useParams();
 
     useEffect(() => {
 
-            const getLukeInfo = async () => {
+            const getHeroInfo = async () => {
                 try {
-                    const response = await fetch(`${link_api}/v1/peoples/1`);
-                    if (!response.ok) throw new Error("Failed to fetch Luke info");
+                    const response = await fetch(characters[heroId].url);
+                    if (!response.ok) throw new Error("Failed to fetch Hero info");
                     const data = await response.json();
-                    const luke: LukeInfoTypes = {
+                    const hero: HeroInfoTypes = {
                         name: data.name,
                         gender: data.gender,
                         skin_color: data.skin_color,
@@ -23,9 +25,9 @@ const AboutMe = () => {
                         weight: data.mass,
                         birth_year: data.birth_year
                     }
-                    setLukeInfo(luke);
-                    localStorage.setItem('local_lukeInfo', JSON.stringify({
-                        hero: luke,
+                    setHeroInfo(hero);
+                    localStorage.setItem(heroId, JSON.stringify({
+                        payload: hero,
                         saveTime: Date.now()
                     }));
                 } catch (e) {
@@ -34,11 +36,11 @@ const AboutMe = () => {
                 }
             }
 
-            const luke = JSON.parse(localStorage.getItem('local_lukeInfo')!);
-            if (luke && (Date.now() - luke.saveTime) < period_month) {
-                setLukeInfo(luke.hero)
+            const hero = JSON.parse(localStorage.getItem(heroId)!);
+            if (hero && (Date.now() - hero.saveTime) < period_month) {
+                setHeroInfo(hero.payload)
             } else {
-                getLukeInfo();
+                getHeroInfo();
             }
         },
         []
@@ -46,9 +48,9 @@ const AboutMe = () => {
 
     return (
         <div>
-            {lukeInfo && (
+            {heroInfo && (
                 <div className='text-4xl tracking-widest leading-13 text-justify ml-8'>
-                    {Object.entries(lukeInfo).map(([key, value]) =>
+                    {Object.entries(heroInfo).map(([key, value]) =>
                         <p key={key}>
                             <span className={'text-3xl capitalize'}>{key.replace('_', ' ')}</span>: {value}
                         </p>)}
