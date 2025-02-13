@@ -2,18 +2,21 @@ import {useEffect, useState} from "react";
 import {characters, defaultHero, period_month} from "../utils/constants.ts";
 import {HeroInfoTypes} from "../utils/type";
 import {useParams} from "react-router";
+import ErrorPage from "./ErrorPage.tsx";
 
 const AboutMe = () => {
 
     const [heroInfo, setHeroInfo] = useState<HeroInfoTypes>({} as HeroInfoTypes);
+    const [error, setError] = useState(false);
     const {heroId = defaultHero} = useParams();
 
     useEffect(() => {
 
             const getHeroInfo = async () => {
                 try {
+                    if (!characters[heroId]) throw new Error("Character not found");
                     const response = await fetch(characters[heroId].url);
-                    if (!response.ok) throw new Error("Failed to fetch Hero info");
+                    if (!response.ok) throw new Error("Failed to fetch info");
                     const data = await response.json();
                     const hero: HeroInfoTypes = {
                         name: data.name,
@@ -32,7 +35,7 @@ const AboutMe = () => {
                     }));
                 } catch (e) {
                     if (e instanceof Error)
-                        console.log(e.message);
+                        setError(true);
                 }
             }
 
@@ -43,10 +46,11 @@ const AboutMe = () => {
                 getHeroInfo();
             }
         },
-        []
+        [heroId]
     )
-
+    if (error) return <ErrorPage/>;
     return (
+
         <div>
             {heroInfo && (
                 <div className='text-4xl tracking-widest leading-13 text-justify ml-8'>

@@ -7,7 +7,7 @@ import Contact from "./Contact.tsx";
 import ErrorPage from "./ErrorPage.tsx";
 
 const Main = () => {
-
+   
     return (
         <Routes>
             {['/', `${navItems[0].path}`].map(path => <Route path={path} element={<Home/>}/>)}
