@@ -37,7 +37,7 @@ export const characters: Characters = {
         },
         leia: {
                 name: "Leia Organa",
-                img: friend6,
+                img: friend9,
                 url: `${link_api + version}/peoples/5`
         },
         obi_wan: {
@@ -57,7 +57,7 @@ export const characters: Characters = {
         },
         yoda: {
                 name: "Yoda",
-                img: friend9,
+                img: friend6,
                 url: `${link_api + version}/peoples/0`
         },
         ewok: {
@@ -72,7 +72,7 @@ export const characters: Characters = {
         }
 };
 
-export const friends = [friend1, friend2, friend3, friend4, friend5, friend6, friend7, friend8, friend9];
+export const friends = Object.keys(characters);
 export const defaultHero = 'luke';
 export const period_month = 30 * 24 * 60 * 60 * 1000;
 export const starWarsInfo = `Star Wars is an American epic space opera media franchise created by George Lucas, which began with the eponymous 1977 film

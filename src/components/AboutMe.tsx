@@ -1,20 +1,23 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {characters, defaultHero, period_month} from "../utils/constants.ts";
 import {HeroInfoTypes} from "../utils/type";
 import {useParams} from "react-router";
 import ErrorPage from "./ErrorPage.tsx";
+import {SWContext} from "../utils/context.ts";
 
 const AboutMe = () => {
 
-    const [heroInfo, setHeroInfo] = useState<HeroInfoTypes>({} as HeroInfoTypes);
-    const [error, setError] = useState(false);
+    const [heroInfo, setHeroInfo] = useState<HeroInfoTypes>();
     const {heroId = defaultHero} = useParams();
+    const {changeHero} = useContext(SWContext)
 
     useEffect(() => {
-
+            if (!characters[heroId]) {
+                return;
+            }
+            changeHero(heroId);
             const getHeroInfo = async () => {
                 try {
-                    if (!characters[heroId]) throw new Error("Character not found");
                     const response = await fetch(characters[heroId].url);
                     if (!response.ok) throw new Error("Failed to fetch info");
                     const data = await response.json();
@@ -34,11 +37,9 @@ const AboutMe = () => {
                         saveTime: Date.now()
                     }));
                 } catch (e) {
-                    if (e instanceof Error)
-                        setError(true);
+                    console.log(e);
                 }
             }
-
             const hero = JSON.parse(localStorage.getItem(heroId)!);
             if (hero && (Date.now() - hero.saveTime) < period_month) {
                 setHeroInfo(hero.payload)
@@ -48,10 +49,9 @@ const AboutMe = () => {
         },
         [heroId]
     )
-    if (error) return <ErrorPage/>;
-    return (
 
-        <div>
+    return characters[heroId] ? (
+        <>
             {heroInfo && (
                 <div className='text-4xl tracking-widest leading-13 text-justify ml-8'>
                     {Object.entries(heroInfo).map(([key, value]) =>
@@ -60,8 +60,8 @@ const AboutMe = () => {
                         </p>)}
                 </div>
             )}
-        </div>
-    );
+        </>
+    ) : <ErrorPage/>;
 }
 
 export default AboutMe;

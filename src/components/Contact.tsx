@@ -1,15 +1,27 @@
-import {link_api, period_month} from "../utils/constants.ts";
-import {useEffect, useState} from "react";
+import {characters, defaultHero, link_api, period_month} from "../utils/constants.ts";
+import {useContext, useEffect, useState} from "react";
 import Input from "../uicomponents/Input.tsx";
 import Select from "../uicomponents/Select.tsx";
 import TextArea from "../uicomponents/TextArea.tsx";
 import Button from "../uicomponents/Button.tsx";
+import {useParams} from "react-router";
+import {SWContext} from "../utils/context.ts";
+import ErrorPage from "./ErrorPage.tsx";
 
 interface Planet {
     name: string;
 }
 
 const Contact = () => {
+    const {heroId = defaultHero} = useParams();
+    const {changeHero} = useContext(SWContext)
+
+    useEffect(() => {
+        if (!characters[heroId]) {
+            return;
+        }
+        changeHero(heroId);
+    }, [heroId])
 
     const [planets, setPlanets] = useState<string []>(['Wait...']);
 
@@ -41,7 +53,7 @@ const Contact = () => {
         }
     }, [])
 
-    return (
+    return characters[heroId] ? (
         <form className={'rounded-md bg-grey-color p-5'} onSubmit={e => {
             e.preventDefault()
         }}>
@@ -51,7 +63,7 @@ const Contact = () => {
             <TextArea name='subject' placeholder='Write something...'>Subject</TextArea>
             <Button className='py-3 px-5'>Submit</Button>
         </form>
-    );
+    ) : <ErrorPage/>
 };
 
 
