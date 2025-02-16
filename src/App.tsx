@@ -7,9 +7,10 @@ import {SWContext} from "./utils/context.ts";
 
 function App() {
     const [hero, setHero] = useState(defaultHero)
+    const [isError, setIsError] = useState(false);
 
     return (
-        <SWContext.Provider value={{hero, changeHero: setHero}}>
+        <SWContext.Provider value={{hero, changeHero: setHero, isError, setIsError}}>
             <Header/>
             <Main/>
             <Footer/>

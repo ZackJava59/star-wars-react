@@ -8,7 +8,7 @@ interface NavItemProps {
 }
 
 const NavItem = ({item}: NavItemProps) => {
-    const{hero}= useContext(SWContext)
+    const {hero} = useContext(SWContext)
 
     return (
         <NavLink to={`/${item.path}/${hero}`}

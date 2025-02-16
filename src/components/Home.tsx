@@ -9,22 +9,26 @@ import {SWContext} from "../utils/context.ts";
 
 const Home = () => {
     const {heroId = defaultHero} = useParams();
-    const {changeHero} = useContext(SWContext)
+    const {changeHero, setIsError} = useContext(SWContext)
+    const actualHeroId = heroId || defaultHero;
 
     useEffect(() => {
-        if (!characters[heroId]) {
-            return;
+        if (!characters[actualHeroId]) {
+            setIsError(true);
+        } else {
+            changeHero(actualHeroId);
+            setIsError(false);
         }
-        changeHero(heroId);
-    }, [heroId])
+    }, [heroId, changeHero, setIsError]);
 
-    return characters[heroId] ? (
+    return !characters[actualHeroId] ? (
+        <ErrorPage/>) : (
         <main className="clearfix">
             <Hero/>
             <DreamTeam/>
             <FarGalaxy/>
         </main>
-    ) : <ErrorPage/>;
+    );
 };
 
 export default Home;

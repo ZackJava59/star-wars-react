@@ -9,13 +9,16 @@ const AboutMe = () => {
 
     const [heroInfo, setHeroInfo] = useState<HeroInfoTypes>();
     const {heroId = defaultHero} = useParams();
-    const {changeHero} = useContext(SWContext)
+    const {changeHero, setIsError} = useContext(SWContext)
+    const actualHeroId = heroId || defaultHero;
 
     useEffect(() => {
-            if (!characters[heroId]) {
-                return;
+            if (!characters[actualHeroId]) {
+                setIsError(true);
+            } else {
+                changeHero(actualHeroId);
+                setIsError(false);
             }
-            changeHero(heroId);
             const getHeroInfo = async () => {
                 try {
                     const response = await fetch(characters[heroId].url);
@@ -47,10 +50,11 @@ const AboutMe = () => {
                 getHeroInfo();
             }
         },
-        [heroId]
+        [heroId, changeHero, setIsError]
     )
 
-    return characters[heroId] ? (
+    return !characters[actualHeroId] ? (
+        <ErrorPage/>) : (
         <>
             {heroInfo && (
                 <div className='text-4xl tracking-widest leading-13 text-justify ml-8'>
@@ -61,7 +65,7 @@ const AboutMe = () => {
                 </div>
             )}
         </>
-    ) : <ErrorPage/>;
+    )
 }
 
 export default AboutMe;

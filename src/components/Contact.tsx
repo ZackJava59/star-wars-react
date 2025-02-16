@@ -14,14 +14,8 @@ interface Planet {
 
 const Contact = () => {
     const {heroId = defaultHero} = useParams();
-    const {changeHero} = useContext(SWContext)
-
-    useEffect(() => {
-        if (!characters[heroId]) {
-            return;
-        }
-        changeHero(heroId);
-    }, [heroId])
+    const {changeHero, setIsError} = useContext(SWContext)
+    const actualHeroId = heroId || defaultHero;
 
     const [planets, setPlanets] = useState<string []>(['Wait...']);
 
@@ -45,15 +39,22 @@ const Contact = () => {
     };
 
     useEffect(() => {
+        if (!characters[actualHeroId]) {
+            setIsError(true);
+        } else {
+            changeHero(actualHeroId);
+            setIsError(false);
+        }
         const planets = JSON.parse(localStorage.getItem('planets')!);
         if (planets && ((Date.now() - planets.timeStamp) < period_month)) {
             setPlanets(planets.payload);
         } else {
             getPlanetList();
         }
-    }, [])
+    }, [heroId, changeHero, setIsError])
 
-    return characters[heroId] ? (
+    return !characters[actualHeroId] ? (
+        <ErrorPage/>) : (
         <form className={'rounded-md bg-grey-color p-5'} onSubmit={e => {
             e.preventDefault()
         }}>
@@ -63,7 +64,7 @@ const Contact = () => {
             <TextArea name='subject' placeholder='Write something...'>Subject</TextArea>
             <Button className='py-3 px-5'>Submit</Button>
         </form>
-    ) : <ErrorPage/>
+    )
 };
 
 
