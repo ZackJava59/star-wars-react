@@ -1,24 +1,16 @@
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {characters, defaultHero, period_month} from "../utils/constants.ts";
 import {HeroInfoTypes} from "../utils/type";
 import {useParams} from "react-router";
-import ErrorPage from "./ErrorPage.tsx";
-import {SWContext} from "../utils/context.ts";
+import errorWrapper from "../hoc/ErrorWrapper.tsx";
 
 const AboutMe = () => {
 
     const [heroInfo, setHeroInfo] = useState<HeroInfoTypes>();
     const {heroId = defaultHero} = useParams();
-    const {changeHero, setIsError} = useContext(SWContext)
-    const actualHeroId = heroId || defaultHero;
 
     useEffect(() => {
-            if (!characters[actualHeroId]) {
-                setIsError(true);
-            } else {
-                changeHero(actualHeroId);
-                setIsError(false);
-            }
+
             const getHeroInfo = async () => {
                 try {
                     const response = await fetch(characters[heroId].url);
@@ -50,11 +42,10 @@ const AboutMe = () => {
                 getHeroInfo();
             }
         },
-        [heroId, changeHero, setIsError]
+        [heroId]
     )
 
-    return !characters[actualHeroId] ? (
-        <ErrorPage/>) : (
+    return (
         <>
             {heroInfo && (
                 <div className='text-4xl tracking-widest leading-13 text-justify ml-8'>
@@ -68,5 +59,5 @@ const AboutMe = () => {
     )
 }
 
-export default AboutMe;
+export default errorWrapper(AboutMe);
 

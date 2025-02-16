@@ -1,21 +1,16 @@
-import {characters, defaultHero, link_api, period_month} from "../utils/constants.ts";
-import {useContext, useEffect, useState} from "react";
+import {link_api, period_month} from "../utils/constants.ts";
+import {useEffect, useState} from "react";
 import Input from "../uicomponents/Input.tsx";
 import Select from "../uicomponents/Select.tsx";
 import TextArea from "../uicomponents/TextArea.tsx";
 import Button from "../uicomponents/Button.tsx";
-import {useParams} from "react-router";
-import {SWContext} from "../utils/context.ts";
-import ErrorPage from "./ErrorPage.tsx";
+import errorWrapper from "../hoc/ErrorWrapper.tsx";
 
 interface Planet {
     name: string;
 }
 
 const Contact = () => {
-    const {heroId = defaultHero} = useParams();
-    const {changeHero, setIsError} = useContext(SWContext)
-    const actualHeroId = heroId || defaultHero;
 
     const [planets, setPlanets] = useState<string []>(['Wait...']);
 
@@ -39,22 +34,15 @@ const Contact = () => {
     };
 
     useEffect(() => {
-        if (!characters[actualHeroId]) {
-            setIsError(true);
-        } else {
-            changeHero(actualHeroId);
-            setIsError(false);
-        }
         const planets = JSON.parse(localStorage.getItem('planets')!);
         if (planets && ((Date.now() - planets.timeStamp) < period_month)) {
             setPlanets(planets.payload);
         } else {
             getPlanetList();
         }
-    }, [heroId, changeHero, setIsError])
+    }, [])
 
-    return !characters[actualHeroId] ? (
-        <ErrorPage/>) : (
+    return (
         <form className={'rounded-md bg-grey-color p-5'} onSubmit={e => {
             e.preventDefault()
         }}>
@@ -68,4 +56,4 @@ const Contact = () => {
 };
 
 
-export default Contact;
+export default errorWrapper(Contact);
